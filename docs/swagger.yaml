@@ -1,0 +1,40 @@
+basePath: /
+definitions:
+  response.Base:
+    properties:
+      code:
+        type: integer
+      data: {}
+      message:
+        type: string
+      success:
+        type: boolean
+    type: object
+info:
+  contact: {}
+  description: This is a sample Server pets
+  title: Swagger Example API
+  version: 0.0.1
+paths:
+  /test/ping:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 测试api成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 测试
+      tags:
+      - Test
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
