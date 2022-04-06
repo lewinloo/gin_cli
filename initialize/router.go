@@ -30,5 +30,10 @@ func Routes() *gin.Engine {
 	{
 		systemRouter.InitTestRoutes(PublicGroup)
 	}
+
+	// PrivateGroup := Router.Group("").Use(middleware.CheckAuth())
+	// {
+
+	// }
 	return Router
 }

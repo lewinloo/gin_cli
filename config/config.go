@@ -14,6 +14,7 @@ var (
 	AppPort string
 
 	LogConf LogConfig
+	JwtConf JwtConfig
 
 	FilePath = "config.ini"
 )
@@ -28,4 +29,5 @@ func Init() {
 	LoadApp(file)
 	LoadDatabase(file)
 	LogConf.Load(file)
+	JwtConf.Load(file)
 }

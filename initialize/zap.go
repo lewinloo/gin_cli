@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"gin_cli/config"
+	"gin_cli/utils"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -9,8 +10,6 @@ import (
 	"runtime/debug"
 	"strings"
 	"time"
-
-	"gin_cli/utils"
 
 	"github.com/gin-gonic/gin"
 	"github.com/natefinch/lumberjack"
