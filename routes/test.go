@@ -2,6 +2,7 @@ package routes
 
 import (
 	"gin_cli/controller"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +13,6 @@ func (r *TestRouter) InitTestRoutes(Router *gin.RouterGroup) {
 	testRouter := Router.Group("test")
 	controller := controller.Test{}
 	{
-		testRouter.GET("ping", controller.GetHello) // 测试
+		testRouter.POST("ping", controller.GetHello) // 测试
 	}
 }

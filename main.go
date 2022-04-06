@@ -27,5 +27,11 @@ func main() {
 		defer db.Close()
 	}
 
+	if logger, err := initialize.InitLogger(&config.LogConf); err != nil {
+		panic(err)
+	} else {
+		global.LOG = logger
+	}
+
 	app.Run(config.AppPort)
 }

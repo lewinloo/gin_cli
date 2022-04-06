@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+
 	"gopkg.in/ini.v1"
 )
 
@@ -11,6 +12,8 @@ var (
 
 	AppMode string
 	AppPort string
+
+	LogConf LogConfig
 
 	FilePath = "config.ini"
 )
@@ -24,4 +27,5 @@ func Init() {
 
 	LoadApp(file)
 	LoadDatabase(file)
+	LogConf.Load(file)
 }

@@ -17,9 +17,19 @@ info:
   version: 0.0.1
 paths:
   /test/ping:
-    get:
+    post:
       consumes:
       - application/json
+      parameters:
+      - description: 当前页的大小
+        in: query
+        name: size
+        type: integer
+      - description: xxx
+        in: body
+        name: params
+        schema:
+          type: object
       produces:
       - application/json
       responses:

@@ -17,7 +17,7 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/test/ping": {
-            "get": {
+            "post": {
                 "security": [
                     {
                         "ApiKeyAuth": []
@@ -33,6 +33,22 @@ const docTemplate = `{
                     "Test"
                 ],
                 "summary": "测试",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "当前页的大小",
+                        "name": "size",
+                        "in": "query"
+                    },
+                    {
+                        "description": "xxx",
+                        "name": "params",
+                        "in": "body",
+                        "schema": {
+                            "type": "object"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "测试api成功返回体",
