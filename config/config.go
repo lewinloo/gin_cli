@@ -13,8 +13,9 @@ var (
 	AppMode string
 	AppPort string
 
-	LogConf LogConfig
-	JwtConf JwtConfig
+	LogConf    LogConfig
+	JwtConf    JwtConfig
+	CasbinConf CasbinConfig
 
 	FilePath = "config.ini"
 )
@@ -30,4 +31,5 @@ func Init() {
 	LoadDatabase(file)
 	LogConf.Load(file)
 	JwtConf.Load(file)
+	CasbinConf.Load(file)
 }

@@ -26,14 +26,17 @@ func Routes() *gin.Engine {
 
 	Router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 
+	// 公共接口
 	PublicGroup := Router.Group("")
 	{
-		systemRouter.InitTestRoutes(PublicGroup)
+		systemRouter.InitUserRoutes(PublicGroup)
 	}
 
-	// PrivateGroup := Router.Group("").Use(middleware.CheckAuth())
-	// {
-
-	// }
+	// 需要登录才能访问的接口
+	PrivateGroup := Router.Group("")
+	PrivateGroup.Use(middleware.CheckAuth())
+	{
+		systemRouter.InitTestRoutes(PrivateGroup)
+	}
 	return Router
 }

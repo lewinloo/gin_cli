@@ -2,6 +2,7 @@ package initialize
 
 import (
 	"gin_cli/config"
+
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )

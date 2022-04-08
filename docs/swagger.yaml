@@ -1,5 +1,19 @@
 basePath: /
 definitions:
+  request.RegisterParams:
+    properties:
+      password:
+        maxLength: 32
+        minLength: 6
+        type: string
+      username:
+        maxLength: 16
+        minLength: 4
+        type: string
+    required:
+    - password
+    - username
+    type: object
   response.Base:
     properties:
       code:
@@ -42,6 +56,48 @@ paths:
       summary: 测试
       tags:
       - Test
+  /user/login:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 登录参数
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.RegisterParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 测试api成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: 用户登录接口
+      tags:
+      - 用户模块
+  /user/register:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 注册参数
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.RegisterParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 测试api成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      summary: 用户注册接口
+      tags:
+      - 用户模块
 securityDefinitions:
   ApiKeyAuth:
     in: header

@@ -13,11 +13,12 @@ var JwtSecret = []byte(config.JwtConf.JwtSecret)
 type Claims struct {
 	Id       uint   `json:"id"`
 	UserName string `json:"username"`
+	RoleId   uint   `json:"roleId"`
 	jwt.StandardClaims
 }
 
 // 生成token
-func GenerateToken(id uint, username string) (string, error) {
+func GenerateToken(id uint, username string, roleId uint) (string, error) {
 	expireTime := time.Now().Add(time.Duration(config.JwtConf.ExpireTime) * time.Hour)
 	claims := Claims{
 		Id:       id,

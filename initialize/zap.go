@@ -2,7 +2,6 @@ package initialize
 
 import (
 	"gin_cli/config"
-	"gin_cli/utils"
 	"net"
 	"net/http"
 	"net/http/httputil"
@@ -59,7 +58,7 @@ func GinLogger(logger *zap.Logger) gin.HandlerFunc {
 		start := time.Now()
 		path := c.Request.URL.Path
 		query := c.Request.URL.RawQuery
-		body := utils.GetRequestBody(c)
+		// body := utils.GetRequestBody(c)
 		c.Next()
 
 		cost := time.Since(start)
@@ -68,7 +67,7 @@ func GinLogger(logger *zap.Logger) gin.HandlerFunc {
 			zap.String("method", c.Request.Method),
 			zap.String("path", path),
 			zap.String("query", query),
-			zap.String("body", body),
+			// zap.String("body", body),
 			zap.String("ip", c.ClientIP()),
 			zap.String("user-agent", c.Request.UserAgent()),
 			zap.String("errors", c.Errors.ByType(gin.ErrorTypePrivate).String()),
