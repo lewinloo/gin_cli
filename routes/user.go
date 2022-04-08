@@ -14,6 +14,5 @@ func (r *UserRouter) InitUserRoutes(Router *gin.RouterGroup) {
 	controller := controller.User{}
 	{
 		router.POST("register", controller.Register) // 注册
-		router.POST("login", controller.Login)       // 注册
 	}
 }

@@ -29,14 +29,18 @@ func Routes() *gin.Engine {
 	// 公共接口
 	PublicGroup := Router.Group("")
 	{
-		systemRouter.InitUserRoutes(PublicGroup)
+		systemRouter.InitPublicRoutes(PublicGroup)
 	}
 
 	// 需要登录才能访问的接口
 	PrivateGroup := Router.Group("")
-	PrivateGroup.Use(middleware.CheckAuth())
+	PrivateGroup.Use(middleware.CheckAuth(), middleware.CheckPermission())
 	{
 		systemRouter.InitTestRoutes(PrivateGroup)
+		systemRouter.InitUserRoutes(PrivateGroup)
+		systemRouter.InitRoleRoutes(PrivateGroup)
+		systemRouter.InitApiRoutes(PrivateGroup)
+		systemRouter.InitPermissionRoutes(PrivateGroup)
 	}
 	return Router
 }

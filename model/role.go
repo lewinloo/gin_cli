@@ -14,7 +14,6 @@ type Role struct {
 	RoleName      string         `gorm:"comment:角色名" json:"roleName"`                                   //角色名
 	ParentId      string         `json:"parentId" gorm:"comment:父角色ID"`                                 // 父角色ID
 	DefaultRouter string         `json:"defaultRouter" gorm:"comment:默认菜单;default:dashboard"`           //默认菜单（默认为dashboard）
-	Apis          []Api          `gorm:"many2many:api_role;"`
 	Menus         []Menu         `json:"menus" gorm:"many2many:menu_role"`
 	Users         []User         `json:"users"`
 }

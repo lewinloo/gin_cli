@@ -1,5 +1,71 @@
 basePath: /
 definitions:
+  request.CreateApiParams:
+    properties:
+      apiGroup:
+        description: api组
+        type: string
+      description:
+        description: api描述
+        type: string
+      method:
+        description: 请求方法：POST|GET|PUT|PATCH|DELETE
+        type: string
+      path:
+        description: api路径
+        type: string
+    type: object
+  request.CreateRoleParams:
+    properties:
+      defaultRouter:
+        type: string
+      pid:
+        type: string
+      roleId:
+        type: string
+      roleName:
+        type: string
+    type: object
+  request.PermissionInReceive:
+    properties:
+      permissionInfos:
+        items:
+          $ref: '#/definitions/request.PermissionInfo'
+        type: array
+      roleId:
+        description: 权限id
+        type: string
+    type: object
+  request.PermissionInfo:
+    properties:
+      method:
+        description: 方法
+        type: string
+      path:
+        description: 路径
+        type: string
+    type: object
+  request.QueryApiListParams:
+    properties:
+      apiGroup:
+        description: api组
+        type: string
+      current:
+        description: 当前页
+        type: integer
+      description:
+        description: api描述
+        type: string
+      method:
+        description: 请求方法：POST|GET|PUT|PATCH|DELETE
+        type: string
+      path:
+        description: api路径
+        type: string
+      size:
+        description: 页的大小
+        type: integer
+    type: object
   request.RegisterParams:
     properties:
       password:
@@ -30,6 +96,114 @@ info:
   title: Swagger Example API
   version: 0.0.1
 paths:
+  /api/all:
+    get:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 查询所有api
+      tags:
+      - Api管理模块
+  /api/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建api参数
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateApiParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建一个Api
+      tags:
+      - Api管理模块
+  /api/list:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 分页查询api参数
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.QueryApiListParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 分页且可以添加条件的查询api
+      tags:
+      - Api管理模块
+  /permission/update:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 权限id, 权限模型列表
+        in: body
+        name: data
+        required: true
+        schema:
+          $ref: '#/definitions/request.PermissionInReceive'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 更新角色api权限
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 更新角色权限
+      tags:
+      - 权限管理
+  /role/create:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: 创建角色参数
+        in: body
+        name: params
+        required: true
+        schema:
+          $ref: '#/definitions/request.CreateRoleParams'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功返回体
+          schema:
+            $ref: '#/definitions/response.Base'
+      security:
+      - ApiKeyAuth: []
+      summary: 创建角色
+      tags:
+      - 角色管理模块
   /test/ping:
     post:
       consumes:

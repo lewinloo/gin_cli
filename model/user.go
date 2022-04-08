@@ -16,7 +16,7 @@ type User struct {
 	Avatar   string    `json:"avatar" gorm:"default:https://qmplusimg.henrongyi.top/gva_header.jpg;comment:用户头像"` // 用户头像
 	Phone    string    `json:"phone"  gorm:"comment:用户手机号"`                                                       // 用户手机号
 	Email    string    `json:"email"  gorm:"comment:用户邮箱"`                                                        // 用户邮箱
-	RoleID   uint      `json:"roleId"`                                                                            // 用户角色id
+	RoleID   string    `json:"roleId" gorm:"comment:角色id;default:666;"`                                           // 用户角色id
 }
 
 // 加密

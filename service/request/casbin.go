@@ -1,24 +1,24 @@
 package request
 
 // Casbin info structure
-type CasbinInfo struct {
+type PermissionInfo struct {
 	Path   string `json:"path"`   // 路径
 	Method string `json:"method"` // 方法
 }
 
 // Casbin structure for input parameters
-type CasbinInReceive struct {
-	AuthorityId string       `json:"roleId"` // 权限id
-	CasbinInfos []CasbinInfo `json:"casbinInfos"`
+type PermissionInReceive struct {
+	RoleId          string           `json:"roleId"` // 权限id
+	PermissionInfos []PermissionInfo `json:"permissionInfos"`
 }
 
-func DefaultCasbin() []CasbinInfo {
-	return []CasbinInfo{
-		{Path: "/menu/getMenu", Method: "POST"},
+func DefaultCasbin() []PermissionInfo {
+	return []PermissionInfo{
 		{Path: "/user/login", Method: "POST"},
 		{Path: "/user/register", Method: "POST"},
-		{Path: "/user/changePassword", Method: "POST"},
-		{Path: "/user/setUserInfo", Method: "PUT"},
-		{Path: "/user/getUserInfo", Method: "GET"},
+		// {Path: "/menu/getMenu", Method: "POST"},
+		// {Path: "/user/changePassword", Method: "POST"},
+		// {Path: "/user/setUserInfo", Method: "PUT"},
+		// {Path: "/user/getUserInfo", Method: "GET"},
 	}
 }

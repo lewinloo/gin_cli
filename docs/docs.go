@@ -16,6 +16,185 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/api/all": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api管理模块"
+                ],
+                "summary": "查询所有api",
+                "responses": {
+                    "200": {
+                        "description": "成功返回体",
+                        "schema": {
+                            "$ref": "#/definitions/response.Base"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api管理模块"
+                ],
+                "summary": "创建一个Api",
+                "parameters": [
+                    {
+                        "description": "创建api参数",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateApiParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功返回体",
+                        "schema": {
+                            "$ref": "#/definitions/response.Base"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/list": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Api管理模块"
+                ],
+                "summary": "分页且可以添加条件的查询api",
+                "parameters": [
+                    {
+                        "description": "分页查询api参数",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.QueryApiListParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功返回体",
+                        "schema": {
+                            "$ref": "#/definitions/response.Base"
+                        }
+                    }
+                }
+            }
+        },
+        "/permission/update": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "权限管理"
+                ],
+                "summary": "更新角色权限",
+                "parameters": [
+                    {
+                        "description": "权限id, 权限模型列表",
+                        "name": "data",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.PermissionInReceive"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "更新角色api权限",
+                        "schema": {
+                            "$ref": "#/definitions/response.Base"
+                        }
+                    }
+                }
+            }
+        },
+        "/role/create": {
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "角色管理模块"
+                ],
+                "summary": "创建角色",
+                "parameters": [
+                    {
+                        "description": "创建角色参数",
+                        "name": "params",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/request.CreateRoleParams"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "成功返回体",
+                        "schema": {
+                            "$ref": "#/definitions/response.Base"
+                        }
+                    }
+                }
+            }
+        },
         "/test/ping": {
             "post": {
                 "security": [
@@ -127,6 +306,101 @@ const docTemplate = `{
         }
     },
     "definitions": {
+        "request.CreateApiParams": {
+            "type": "object",
+            "properties": {
+                "apiGroup": {
+                    "description": "api组",
+                    "type": "string"
+                },
+                "description": {
+                    "description": "api描述",
+                    "type": "string"
+                },
+                "method": {
+                    "description": "请求方法：POST|GET|PUT|PATCH|DELETE",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "api路径",
+                    "type": "string"
+                }
+            }
+        },
+        "request.CreateRoleParams": {
+            "type": "object",
+            "properties": {
+                "defaultRouter": {
+                    "type": "string"
+                },
+                "pid": {
+                    "type": "string"
+                },
+                "roleId": {
+                    "type": "string"
+                },
+                "roleName": {
+                    "type": "string"
+                }
+            }
+        },
+        "request.PermissionInReceive": {
+            "type": "object",
+            "properties": {
+                "permissionInfos": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/request.PermissionInfo"
+                    }
+                },
+                "roleId": {
+                    "description": "权限id",
+                    "type": "string"
+                }
+            }
+        },
+        "request.PermissionInfo": {
+            "type": "object",
+            "properties": {
+                "method": {
+                    "description": "方法",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "路径",
+                    "type": "string"
+                }
+            }
+        },
+        "request.QueryApiListParams": {
+            "type": "object",
+            "properties": {
+                "apiGroup": {
+                    "description": "api组",
+                    "type": "string"
+                },
+                "current": {
+                    "description": "当前页",
+                    "type": "integer"
+                },
+                "description": {
+                    "description": "api描述",
+                    "type": "string"
+                },
+                "method": {
+                    "description": "请求方法：POST|GET|PUT|PATCH|DELETE",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "api路径",
+                    "type": "string"
+                },
+                "size": {
+                    "description": "页的大小",
+                    "type": "integer"
+                }
+            }
+        },
         "request.RegisterParams": {
             "type": "object",
             "required": [

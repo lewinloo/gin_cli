@@ -20,7 +20,7 @@ import (
 
 type CasbinService struct{}
 
-func (casbinService *CasbinService) UpdateCasbin(authorityId string, casbinInfos []request.CasbinInfo) error {
+func (casbinService *CasbinService) UpdateCasbin(authorityId string, casbinInfos []request.PermissionInfo) error {
 	casbinService.ClearCasbin(0, authorityId)
 	rules := [][]string{}
 	for _, v := range casbinInfos {
@@ -54,11 +54,11 @@ func (casbinService *CasbinService) UpdateCasbinApi(oldPath string, newPath stri
 //@param: authorityId string
 //@return: pathMaps []request.CasbinInfo
 
-func (casbinService *CasbinService) GetPolicyPathByAuthorityId(authorityId string) (pathMaps []request.CasbinInfo) {
+func (casbinService *CasbinService) GetPolicyPathByRoleId(authorityId string) (pathMaps []request.PermissionInfo) {
 	e := casbinService.Casbin()
 	list := e.GetFilteredPolicy(0, authorityId)
 	for _, v := range list {
-		pathMaps = append(pathMaps, request.CasbinInfo{
+		pathMaps = append(pathMaps, request.PermissionInfo{
 			Path:   v[1],
 			Method: v[2],
 		})
